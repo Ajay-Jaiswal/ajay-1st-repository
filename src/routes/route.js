@@ -40,17 +40,30 @@ router.get("/test-me", function (req, res) {
 // router.get('/termsAndConditions',  UserController.termsAndConditions)
 // router.get('/register',  UserController.register)
 
+const midi1 = function(req, res, next){
+
+    const header = req.headers.isfreeappuser
+    if(header){
+        if(header === "true")
+        req['isFreeAppUser'] = true
+        if(header === "false")
+        req['isFreeAppUser'] = false
+    next()
+    }
+    else res.send({msg: "An usefull header is missing"})
+    }
 
 
 
 
-router.get("/basicRoute", UserController.basicCode)
+
+//router.get("/basicRoute", UserController.basicCode)
 router.post('/create-a-user', UserController.createAUser)
 
 ////////////////////////////////////////////////////
-router.post('/createUser1', commonM.headercheck,newController.createUser1)
-router.post('/createOrder', newController.createOrder)
-router.post('/createProduct',commonM.headercheck,newController.createProduct)
+router.post('/createUser1',midi1,newController.createUser1)
+router.post('/createOrder',midi1, newController.createOrder)
+router.post('/createProduct',newController.createProduct)
 router.get("/getOrder", newController.getOrder)
 
 

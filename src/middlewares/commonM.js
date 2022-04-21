@@ -4,39 +4,8 @@ const mid1= function ( req, res, next) {
     next()
 }
 
-const headervaluecheck= function ( req, res, next) {
-    const header = req.headers
-
-    console.log(header)
-    const A = header["isFreeAppUser"]
-    console.log(A)
-    if(A == true || A == false){
-        console.log("isFreeAppUser is present")
-    next()
-    }
-    else {console.log("isFreeAppUser is Not present")}
-}
-
-const headercheck= function ( req, res, next) {
-    const header = req.headers["isFreeAppUser"]
-
-    console.log(header)
-    
-    if(header == true || header == false){
-        console.log("isFreeAppUser is present")
-    next()
-    }
-    else {console.log("isFreeAppUser is Not present")}
-}
-
-
-
-
-
 
 module.exports.mid1= mid1
-module.exports.headercheck= headercheck
-module.exports.headervaluecheck= headervaluecheck
 
 
 

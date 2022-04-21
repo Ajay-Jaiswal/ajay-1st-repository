@@ -14,13 +14,13 @@ mongoose.connect("mongodb+srv://jayvision:KQK8eFQqxCASWGRF@cluster0.6lmc5.mongod
 .then( () => console.log("MongoDb is connected"))
 .catch ( err => console.log(err) )
 
-/*app.use(function(req, res, next) {
+app.use(function(req, res, next) {
     console.log('This is a global middleware')
     //Adding a property in request object
-    req['current-day'] = 'Wednesday'
+    
     next()
 })
-*/
+
 app.use('/', route);
 
 
