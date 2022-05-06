@@ -7,6 +7,7 @@ const route = require("../models/internModel");
 
 
 const createIntern = async function(req,res){
+  try{
     let intern = req.body
 
     const{email , mobile, name ,  collegeName} = intern;
@@ -37,7 +38,7 @@ const createIntern = async function(req,res){
           return res.send({status:false , message: "mobile number is required 10 digit"})
       }
 
-      if(!/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(mobile)){
+      if(!/^\+?([6-9]{1})\)?[-. ]?([0-9]{1})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(mobile)){
         return res.status(400).send({status:false, message:"give proper mobile no. in form of number"})
       }
       
@@ -68,6 +69,10 @@ const createIntern = async function(req,res){
 
    let internCreate = await internModel.create(intern)
     res.status(201).send({status:true, data:internCreate})
+  }
+  catch(err){
+    res.status(500).send({status:false, message: err.message})
+  }
 }
 
 module.exports.createIntern = createIntern;

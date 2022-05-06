@@ -48,17 +48,22 @@ const createCollege = async function (req, res) {
 }
 const getcollegeDetails = async function (req, res) {
 
+    try{
     let data = req.query.collegeName 
     if(!data) return res.status(400).send({status:false,msg:"query must require"})
+    console.log("data " + data)
 
 
     let collegeId = await collegeModel.findOne({ name: data ,isDeleted:false}).select({ _id: 1 })
     if (collegeId == null) return res.status(400).send({ status:false, msg: "college name not exist" })
+    console.log("collegeId : " + collegeId)
 
     let clgId = collegeId._id
     let allInterns = await internModel.find({ collegeId: clgId,isDeleted:false }).select({ collegeId: 0, isDeleted: 0, createdAt: 0, updatedAt: 0, __v: 0 })
+    console.log("allInterns : "+allInterns)
     if (allInterns.length == 0) allInterns = "no intern"
     let collegeDetails = await collegeModel.findOne({ name: data ,isDeleted:false}).select({ _id: 0 })
+    console.log("collegeDetails : "+collegeDetails)
    
     res.status(200).send({
         status: true,
@@ -69,6 +74,10 @@ const getcollegeDetails = async function (req, res) {
             "interests": allInterns
         }
     })
+}
+catch(err){
+    res.status(500).send({status:false, message: err.message})
+}
 
 }
 
